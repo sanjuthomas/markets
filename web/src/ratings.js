@@ -1,5 +1,6 @@
 import { formatDate, formatDebtToEquity, formatEbitda, formatPrice, formatRatioPercent, formatWeight } from "./format.js";
 import { industryOf } from "./industries.js";
+import { morningstarUrl } from "./morningstar.js";
 
 const STORAGE_KEY = "heatmap.apiBase";
 const COST_OF_EQUITY = 0.09;
@@ -102,10 +103,17 @@ function sharedCells(stock) {
   ].join("");
 }
 
+function tickerLink(symbol) {
+  const label = escapeHtml(symbol);
+  const href = morningstarUrl(symbol);
+  if (!href) return label;
+  return `<a class="ticker-link" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+}
+
 function identityCells(stock, index) {
   return [
     cell(String(index + 1)),
-    cell(escapeHtml(stock.symbol), "ticker"),
+    cell(tickerLink(stock.symbol), "ticker"),
     cell(escapeHtml(stock.name), "name"),
     cell(escapeHtml(stock.subIndustry || "—"), "name"),
     cell(formatPrice(stock.price)),
