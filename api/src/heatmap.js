@@ -111,6 +111,7 @@ export async function buildHeatmap() {
     weightedChange,
     benchmark,
     valuationAsOf: valuation.computedAt ?? null,
+    ratiosAsOf: ratios?.computedAt ?? null,
     stockCount: stocks.length,
     quotedCount: quoted.length,
     comparison: LOOKBACKS[0].comparison,

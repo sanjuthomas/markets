@@ -1,5 +1,6 @@
 import { createServer } from "node:http";
 import { getHeatmap } from "./heatmap.js";
+import { getStatus } from "./status.js";
 
 const port = Number(process.env.PORT) || 8787;
 
@@ -28,6 +29,10 @@ const server = createServer(async (request, response) => {
   try {
     if (url.pathname === "/health") {
       sendJson(response, 200, { ok: true });
+      return;
+    }
+    if (url.pathname === "/api/status") {
+      sendJson(response, 200, await getStatus());
       return;
     }
     if (url.pathname === "/api/heatmap") {

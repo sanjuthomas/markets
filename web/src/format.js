@@ -85,6 +85,19 @@ export function formatClock(iso) {
   }).format(new Date(iso));
 }
 
+export function formatStamp(iso) {
+  if (!iso) return "";
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+  }).format(new Date(iso));
+}
+
 const STATUS_LABEL = {
   REGULAR: "Market open",
   PRE_MKT: "Pre-market",
